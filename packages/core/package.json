@@ -1,0 +1,68 @@
+{
+  "name": "@disclosures/core",
+  "version": "0.1.0",
+  "description": "Animated disclosure components with smooth height transitions",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./auto": {
+      "import": {
+        "types": "./dist/auto-init.d.ts",
+        "default": "./dist/auto-init.js"
+      },
+      "require": {
+        "types": "./dist/auto-init.d.cts",
+        "default": "./dist/auto-init.cjs"
+      }
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tokens.css": "./dist/tokens.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && pnpm run copy-css",
+    "copy-css": "cp src/*.css dist/",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "disclosure",
+    "accordion",
+    "details",
+    "animation",
+    "accessible",
+    "a11y"
+  ],
+  "author": "Disclosures Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/disclosures/disclosures.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/disclosures/disclosures/issues"
+  },
+  "homepage": "https://disclosures.dev",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "happy-dom": "^15.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

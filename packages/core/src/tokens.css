@@ -1,0 +1,31 @@
+/**
+ * Disclosures CSS Custom Properties
+ * Import this file to customize the appearance without loading full styles.
+ */
+:root {
+  /* Animation */
+  --disclosure-duration: 300ms;
+  --disclosure-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Indicator */
+  --disclosure-indicator-size: 20px;
+  --disclosure-indicator-color: #666;
+  --disclosure-indicator-color-open: #00ff88;
+
+  /* Spacing */
+  --disclosure-padding-x: 0;
+  --disclosure-padding-y: 8px;
+  --disclosure-content-padding: 8px;
+  --disclosure-indicator-gap: 8px;
+
+  /* Panel variant */
+  --disclosure-panel-bg: #1a1a1a;
+  --disclosure-panel-bg-open: #161616;
+  --disclosure-panel-border: #333;
+  --disclosure-panel-padding: 8px 16px;
+
+  /* FAQ variant */
+  --disclosure-faq-border: #333;
+  --disclosure-faq-font-size: 18px;
+  --disclosure-faq-content-padding: 16px 0 0 24px;
+}

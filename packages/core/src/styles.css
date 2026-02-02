@@ -1,0 +1,204 @@
+/**
+ * Disclosures Component Styles
+ * Full styles including tokens, base styles, variants, and indicators.
+ */
+
+/* Tokens */
+:root {
+  /* Animation */
+  --disclosure-duration: 300ms;
+  --disclosure-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Indicator */
+  --disclosure-indicator-size: 20px;
+  --disclosure-indicator-color: #666;
+  --disclosure-indicator-color-open: #00ff88;
+
+  /* Spacing */
+  --disclosure-padding-x: 0;
+  --disclosure-padding-y: 8px;
+  --disclosure-content-padding: 8px;
+  --disclosure-indicator-gap: 8px;
+
+  /* Panel variant */
+  --disclosure-panel-bg: #1a1a1a;
+  --disclosure-panel-bg-open: #161616;
+  --disclosure-panel-border: #333;
+  --disclosure-panel-padding: 8px 16px;
+
+  /* FAQ variant */
+  --disclosure-faq-border: #333;
+  --disclosure-faq-font-size: 18px;
+  --disclosure-faq-content-padding: 16px 0 0 24px;
+}
+
+/* Base Details */
+.disclosure {
+  overflow: hidden;
+}
+
+.disclosure__summary {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  padding: var(--disclosure-padding-y) var(--disclosure-padding-x);
+  user-select: none;
+}
+
+.disclosure__summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure__summary::marker {
+  display: none;
+  content: '';
+}
+
+.disclosure__indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--disclosure-indicator-size);
+  height: var(--disclosure-indicator-size);
+  margin-right: var(--disclosure-indicator-gap);
+  color: var(--disclosure-indicator-color);
+  transition: transform var(--disclosure-duration) var(--disclosure-easing),
+              color var(--disclosure-duration) var(--disclosure-easing);
+}
+
+.disclosure[open] .disclosure__indicator {
+  color: var(--disclosure-indicator-color-open);
+}
+
+.disclosure__label {
+  flex: 1;
+}
+
+.disclosure__content {
+  /* Content wrapper for animation */
+}
+
+.disclosure__content-inner {
+  padding: var(--disclosure-content-padding) 0;
+}
+
+/* ============================================
+   Indicator Variants
+   ============================================ */
+
+/* Indicator: Chevron (default) */
+.disclosure--indicator-chevron .disclosure__indicator::before {
+  content: "\25B8"; /* Right-pointing triangle */
+  font-size: 1.2em;
+}
+
+.disclosure--indicator-chevron[open] .disclosure__indicator {
+  transform: rotate(90deg);
+}
+
+/* Indicator: Plus/Minus */
+.disclosure--indicator-plus .disclosure__indicator::before {
+  content: "+";
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.disclosure--indicator-plus[open] .disclosure__indicator::before {
+  content: "\2212"; /* Minus sign */
+}
+
+.disclosure--indicator-plus[open] .disclosure__indicator {
+  transform: none;
+}
+
+/* Indicator: Arrow */
+.disclosure--indicator-arrow .disclosure__indicator::before {
+  content: "\2193"; /* Down arrow */
+}
+
+.disclosure--indicator-arrow[open] .disclosure__indicator {
+  transform: rotate(180deg);
+}
+
+/* Indicator: None */
+.disclosure--indicator-none .disclosure__indicator {
+  display: none;
+}
+
+/* ============================================
+   Style Variants
+   ============================================ */
+
+/* Variant: Default (minimal) */
+.disclosure--default {
+  /* No additional styling */
+}
+
+/* Variant: Panel (boxed sections) */
+.disclosure--panel {
+  background: var(--disclosure-panel-bg);
+  border: 1px solid var(--disclosure-panel-border);
+  margin-bottom: 16px;
+  padding: var(--disclosure-panel-padding);
+}
+
+.disclosure--panel .disclosure__summary {
+  font-weight: bold;
+}
+
+.disclosure--panel[open] {
+  background: var(--disclosure-panel-bg-open);
+}
+
+/* Variant: FAQ (question list) */
+.disclosure--faq {
+  border-bottom: 1px solid var(--disclosure-faq-border);
+  padding: 20px 0;
+}
+
+.disclosure--faq:first-of-type {
+  border-top: 1px solid var(--disclosure-faq-border);
+}
+
+.disclosure--faq .disclosure__summary {
+  font-size: var(--disclosure-faq-font-size);
+  padding: 0;
+}
+
+.disclosure--faq .disclosure__content-inner {
+  padding: var(--disclosure-faq-content-padding);
+}
+
+.disclosure--faq .disclosure__content-inner p {
+  margin: 0 0 12px;
+}
+
+.disclosure--faq .disclosure__content-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   Details Group
+   ============================================ */
+
+.disclosure-group {
+  /* Container for grouped details */
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .disclosure__indicator {
+    transition: none;
+  }
+}
+
+/* Focus styles */
+.disclosure__summary:focus-visible {
+  outline: 2px solid var(--disclosure-indicator-color-open);
+  outline-offset: 2px;
+}
