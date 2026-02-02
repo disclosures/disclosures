@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disclosures CDN Test</title>
+  <!-- In production, use: https://unpkg.com/@disclosures/core/dist/styles.css -->
+  <link rel="stylesheet" href="../packages/core/dist/styles.css">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      background: #0a0a0a;
+      color: #f0f0f0;
+    }
+    h1 { color: #00ff88; }
+    h2 { color: #00ff88; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <h1>Disclosures Test</h1>
+
+  <h2>Default with Chevron</h2>
+  <details class="disclosure disclosure--indicator-chevron" data-animated>
+    <summary class="disclosure__summary">
+      <span class="disclosure__indicator" aria-hidden="true"></span>
+      <span class="disclosure__label">What is Disclosures?</span>
+    </summary>
+    <div class="disclosure__content">
+      <div class="disclosure__content-inner">
+        <p>Disclosures is a lightweight library for animated disclosure components with smooth height transitions.</p>
+      </div>
+    </div>
+  </details>
+
+  <h2>Plus/Minus Indicator</h2>
+  <details class="disclosure disclosure--indicator-plus" data-animated>
+    <summary class="disclosure__summary">
+      <span class="disclosure__indicator" aria-hidden="true"></span>
+      <span class="disclosure__label">How does it work?</span>
+    </summary>
+    <div class="disclosure__content">
+      <div class="disclosure__content-inner">
+        <p>It uses the Web Animations API to smoothly animate the height of details elements when they open and close.</p>
+      </div>
+    </div>
+  </details>
+
+  <h2>Panel Variant</h2>
+  <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated>
+    <summary class="disclosure__summary">
+      <span class="disclosure__indicator" aria-hidden="true"></span>
+      <span class="disclosure__label">Panel Example</span>
+    </summary>
+    <div class="disclosure__content">
+      <div class="disclosure__content-inner">
+        <p>This is a panel variant with a background and border.</p>
+      </div>
+    </div>
+  </details>
+
+  <h2>FAQ Variant (Exclusive Group)</h2>
+  <div data-disclosure-group>
+    <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+      <summary class="disclosure__summary">
+        <span class="disclosure__indicator" aria-hidden="true"></span>
+        <span class="disclosure__label">Is it accessible?</span>
+      </summary>
+      <div class="disclosure__content">
+        <div class="disclosure__content-inner">
+          <p>Yes! It uses native details/summary elements, respects prefers-reduced-motion, and is fully keyboard navigable.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+      <summary class="disclosure__summary">
+        <span class="disclosure__indicator" aria-hidden="true"></span>
+        <span class="disclosure__label">What browsers are supported?</span>
+      </summary>
+      <div class="disclosure__content">
+        <div class="disclosure__content-inner">
+          <p>All modern browsers that support the Web Animations API (Chrome, Firefox, Safari, Edge).</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+      <summary class="disclosure__summary">
+        <span class="disclosure__indicator" aria-hidden="true"></span>
+        <span class="disclosure__label">Does it have dependencies?</span>
+      </summary>
+      <div class="disclosure__content">
+        <div class="disclosure__content-inner">
+          <p>Zero dependencies! It's pure TypeScript/JavaScript with CSS.</p>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- In production, use: https://unpkg.com/@disclosures/core/dist/index.global.js -->
+  <script src="../packages/core/dist/index.global.js"></script>
+  <script>
+    // Auto-init all elements with data-animated
+    Disclosures.autoInit();
+    console.log('Disclosures initialized:', Disclosures);
+  </script>
+</body>
+</html>
