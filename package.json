@@ -1,5 +1,7 @@
 {
   "name": "disclosures",
+  "version": "0.1.0",
+  "description": "A collection of animated disclosure components for building accessible UIs",
   "private": true,
   "type": "module",
   "scripts": {
