@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings Panel — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* Badge count in panel headers */
+    .panel-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 10px;
+      background: var(--page-accent);
+      color: #000;
+      margin-left: auto;
+    }
+
+    /* Setting row */
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--page-border);
+    }
+
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+
+    .setting-row__info {
+      flex: 1;
+    }
+
+    .setting-row__label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .setting-row__desc {
+      font-size: 0.75rem;
+      color: var(--page-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* Toggle switch */
+    .toggle {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle__track {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--page-border);
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle__track::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--page-fg);
+      transition: transform 0.2s;
+    }
+
+    .toggle input:checked + .toggle__track {
+      background: var(--page-accent);
+    }
+
+    .toggle input:checked + .toggle__track::before {
+      transform: translateX(18px);
+      background: #000;
+    }
+
+    .toggle input:focus-visible + .toggle__track {
+      outline: 2px solid var(--page-accent);
+      outline-offset: 2px;
+    }
+
+    /* Select dropdown */
+    .setting-select {
+      padding: 0.35rem 0.5rem;
+      font-size: 0.8rem;
+      font-family: inherit;
+      background: var(--page-bg);
+      border: 1px solid var(--page-border);
+      border-radius: 4px;
+      color: var(--page-fg);
+      margin-left: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html" class="active">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">CollapsiblePanel</span>
+    <h1 class="page-title">Settings Panel</h1>
+    <p class="page-desc">
+      Stacked collapsible panels for organizing settings sections. Uses the panel variant
+      with form controls inside each section.
+    </p>
+
+    <!-- Notifications Panel (open by default) -->
+    <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated open>
+      <summary class="disclosure__summary">
+        <span class="disclosure__indicator" aria-hidden="true"></span>
+        <span class="disclosure__label">Notifications</span>
+        <span class="panel-badge">3</span>
+      </summary>
+      <div class="disclosure__content">
+        <div class="disclosure__content-inner">
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Email Notifications</div>
+              <div class="setting-row__desc">Receive email alerts for important updates</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Push Notifications</div>
+              <div class="setting-row__desc">Browser push notifications for real-time alerts</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Weekly Digest</div>
+              <div class="setting-row__desc">Summary of activity sent every Monday</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Marketing Emails</div>
+              <div class="setting-row__desc">Product announcements and promotional offers</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Privacy Panel -->
+    <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated>
+      <summary class="disclosure__summary">
+        <span class="disclosure__indicator" aria-hidden="true"></span>
+        <span class="disclosure__label">Privacy</span>
+      </summary>
+      <div class="disclosure__content">
+        <div class="disclosure__content-inner">
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Profile Visibility</div>
+              <div class="setting-row__desc">Control who can see your profile</div>
+            </div>
+            <select class="setting-select">
+              <option>Public</option>
+              <option selected>Friends Only</option>
+              <option>Private</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Search Indexing</div>
+              <div class="setting-row__desc">Allow search engines to index your profile</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Activity Status</div>
+              <div class="setting-row__desc">Show when you are online</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Display Panel -->
+    <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated>
+      <summary class="disclosure__summary">
+        <span class="disclosure__indicator" aria-hidden="true"></span>
+        <span class="disclosure__label">Display</span>
+      </summary>
+      <div class="disclosure__content">
+        <div class="disclosure__content-inner">
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Theme</div>
+              <div class="setting-row__desc">Choose your preferred color scheme</div>
+            </div>
+            <select class="setting-select">
+              <option selected>Dark</option>
+              <option>Light</option>
+              <option>System</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Compact Mode</div>
+              <div class="setting-row__desc">Reduce spacing for denser layouts</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Animations</div>
+              <div class="setting-row__desc">Enable smooth transitions and animations</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Keyboard Shortcuts Panel -->
+    <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated>
+      <summary class="disclosure__summary">
+        <span class="disclosure__indicator" aria-hidden="true"></span>
+        <span class="disclosure__label">Keyboard Shortcuts</span>
+        <span class="panel-badge">8</span>
+      </summary>
+      <div class="disclosure__content">
+        <div class="disclosure__content-inner">
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Enable Shortcuts</div>
+              <div class="setting-row__desc">Use keyboard shortcuts for common actions</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-row__info">
+              <div class="setting-row__label">Vim Mode</div>
+              <div class="setting-row__desc">Use Vim-style key bindings in text editors</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox">
+              <span class="toggle__track"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Markup Reference -->
+    <div class="demo-section mt-3">
+      <div class="demo-section__header">
+        <div class="demo-section__title">HTML Markup</div>
+        <div class="demo-section__desc">Panel variant with form controls inside.</div>
+      </div>
+      <div class="demo-section__body">
+        <pre class="code-block">&lt;details class="disclosure disclosure--panel disclosure--indicator-chevron"
+         data-animated open&gt;
+  &lt;summary class="disclosure__summary"&gt;
+    &lt;span class="disclosure__indicator" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;span class="disclosure__label"&gt;Section Title&lt;/span&gt;
+  &lt;/summary&gt;
+  &lt;div class="disclosure__content"&gt;
+    &lt;div class="disclosure__content-inner"&gt;
+      &lt;!-- settings rows here --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/details&gt;</pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

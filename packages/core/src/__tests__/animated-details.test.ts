@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { AnimatedDetails } from '../animated-details';
+import { AnimatedDetails, instanceRegistry } from '../animated-details';
 
 // Mock the Web Animations API which isn't available in happy-dom
 const mockAnimate = vi.fn(() => ({
@@ -119,6 +119,28 @@ describe('AnimatedDetails', () => {
 			easing: 'ease-in-out',
 		});
 		expect(animated).toBeInstanceOf(AnimatedDetails);
+	});
+
+	it('should register instance in registry on construction', () => {
+		const animated = new AnimatedDetails(detailsEl);
+		expect(instanceRegistry.get(detailsEl)).toBe(animated);
+	});
+
+	it('should remove instance from registry on destroy', () => {
+		const animated = new AnimatedDetails(detailsEl);
+		expect(instanceRegistry.get(detailsEl)).toBe(animated);
+		animated.destroy();
+		expect(instanceRegistry.get(detailsEl)).toBeUndefined();
+	});
+
+	it('should return instance via static getInstance', () => {
+		const animated = new AnimatedDetails(detailsEl);
+		expect(AnimatedDetails.getInstance(detailsEl)).toBe(animated);
+	});
+
+	it('should return undefined from getInstance for unregistered element', () => {
+		const unregistered = document.createElement('details');
+		expect(AnimatedDetails.getInstance(unregistered as HTMLDetailsElement)).toBeUndefined();
 	});
 
 	it('should remove click listener on destroy', () => {

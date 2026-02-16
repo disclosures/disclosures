@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stepper — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* Step indicator bar */
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 2rem;
+    }
+
+    .step-indicator__step {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .step-indicator__circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 2px solid var(--page-border);
+      background: transparent;
+      color: var(--page-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .step-indicator__circle.active {
+      border-color: var(--page-accent);
+      background: var(--page-accent);
+      color: #000;
+    }
+
+    .step-indicator__circle.completed {
+      border-color: var(--page-accent);
+      color: var(--page-accent);
+    }
+
+    .step-indicator__line {
+      width: 3rem;
+      height: 2px;
+      background: var(--page-border);
+      transition: background 0.2s;
+    }
+
+    .step-indicator__line.completed {
+      background: var(--page-accent);
+    }
+
+    .step-indicator__label {
+      font-size: 0.7rem;
+      color: var(--page-muted);
+      text-align: center;
+      margin-top: 0.35rem;
+    }
+
+    .step-indicator__label.active {
+      color: var(--page-accent);
+    }
+
+    .step-indicator__group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Form elements */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      color: var(--page-fg);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      font-family: inherit;
+      background: var(--page-bg);
+      border: 1px solid var(--page-border);
+      border-radius: 6px;
+      color: var(--page-fg);
+    }
+
+    .form-input:focus {
+      outline: 2px solid var(--page-accent);
+      outline-offset: 1px;
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--page-muted);
+      margin-top: 0.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-check input[type="checkbox"] {
+      accent-color: var(--page-accent);
+    }
+
+    /* Stepper navigation */
+    .stepper-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--page-border);
+    }
+
+    .stepper-nav__status {
+      font-size: 0.8rem;
+      color: var(--page-muted);
+    }
+
+    /* Review table */
+    .review-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.875rem;
+      border-bottom: 1px solid var(--page-border);
+    }
+
+    .review-row:last-child {
+      border-bottom: none;
+    }
+
+    .review-row__label {
+      color: var(--page-muted);
+    }
+
+    .review-row__value {
+      font-weight: 500;
+    }
+
+    /* Hide non-active steps */
+    .stepper-step {
+      display: none;
+    }
+
+    .stepper-step.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html" class="active">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">&lt;Stepper /&gt; &lt;Step /&gt;</span>
+    <h1 class="page-title">Stepper</h1>
+    <p class="page-desc">
+      Progressive forms and wizards that guide users through multi-step processes.
+      Only the current step is shown, reducing cognitive load.
+    </p>
+
+    <div class="info-box">
+      <span class="info-box__icon">i</span>
+      <span>Core doesn't include a Stepper component. This mockup shows how to build one
+      from <code>&lt;details&gt;</code> elements with ~30 lines of vanilla JavaScript for step coordination.</span>
+    </div>
+
+    <!-- Stepper Demo -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Account Setup Wizard</div>
+        <div class="demo-section__desc">A multi-step form that progressively reveals each section.</div>
+      </div>
+      <div class="demo-section__body">
+        <!-- Step Indicator -->
+        <div class="step-indicator" id="stepIndicator">
+          <div class="step-indicator__group">
+            <div class="step-indicator__circle active" data-step="1">1</div>
+            <div class="step-indicator__label active">Personal</div>
+          </div>
+          <div class="step-indicator__line"></div>
+          <div class="step-indicator__group">
+            <div class="step-indicator__circle" data-step="2">2</div>
+            <div class="step-indicator__label">Security</div>
+          </div>
+          <div class="step-indicator__line"></div>
+          <div class="step-indicator__group">
+            <div class="step-indicator__circle" data-step="3">3</div>
+            <div class="step-indicator__label">Review</div>
+          </div>
+        </div>
+
+        <!-- Step 1: Personal Info -->
+        <div class="stepper-step active" data-step-content="1">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="firstName">First Name</label>
+              <input class="form-input" id="firstName" placeholder="John">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName">Last Name</label>
+              <input class="form-input" id="lastName" placeholder="Doe">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" id="email" type="email" placeholder="john@example.com">
+          </div>
+          <div class="stepper-nav">
+            <div></div>
+            <span class="stepper-nav__status">Step 1 of 3</span>
+            <button class="btn btn--primary" onclick="goToStep(2)">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Security -->
+        <div class="stepper-step" data-step-content="2">
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" id="password" type="password" placeholder="Create a strong password">
+            <div class="form-hint">At least 8 characters with a number and special character</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <input class="form-input" id="confirmPassword" type="password" placeholder="Confirm your password">
+          </div>
+          <div class="stepper-nav">
+            <button class="btn" onclick="goToStep(1)">Previous</button>
+            <span class="stepper-nav__status">Step 2 of 3</span>
+            <button class="btn btn--primary" onclick="goToStep(3)">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Review -->
+        <div class="stepper-step" data-step-content="3">
+          <div style="border: 1px solid var(--page-border); border-radius: 6px; padding: 1rem; background: var(--page-code-bg);">
+            <div class="review-row">
+              <span class="review-row__label">Name</span>
+              <span class="review-row__value">John Doe</span>
+            </div>
+            <div class="review-row">
+              <span class="review-row__label">Email</span>
+              <span class="review-row__value">john@example.com</span>
+            </div>
+            <div class="review-row">
+              <span class="review-row__label">Password</span>
+              <span class="review-row__value">--------</span>
+            </div>
+          </div>
+          <p class="text-sm text-muted mt-2">By completing this setup, you agree to our Terms of Service and Privacy Policy.</p>
+          <div class="stepper-nav">
+            <button class="btn" onclick="goToStep(2)">Previous</button>
+            <span class="stepper-nav__status">Step 3 of 3</span>
+            <button class="btn btn--primary">Complete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;" class="mt-2">
+      <div style="padding: 1rem; border: 1px solid var(--page-border); border-radius: 8px; background: var(--page-surface);">
+        <div style="font-weight: 600; margin-bottom: 0.5rem;">Reduced Overwhelm</div>
+        <p class="text-sm text-muted">Users only see one step at a time, making complex processes feel manageable.</p>
+      </div>
+      <div style="padding: 1rem; border: 1px solid var(--page-border); border-radius: 8px; background: var(--page-surface);">
+        <div style="font-weight: 600; margin-bottom: 0.5rem;">Clear Progress</div>
+        <p class="text-sm text-muted">Visual indicators show completion status and remaining steps at a glance.</p>
+      </div>
+      <div style="padding: 1rem; border: 1px solid var(--page-border); border-radius: 8px; background: var(--page-surface);">
+        <div style="font-weight: 600; margin-bottom: 0.5rem;">Flexible Navigation</div>
+        <p class="text-sm text-muted">Users can jump to any step, go back to correct errors, or skip ahead.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>
+    Disclosures.autoInit();
+
+    // Stepper controller (~30 lines)
+    var currentStep = 1;
+    var totalSteps = 3;
+
+    function goToStep(n) {
+      if (n < 1 || n > totalSteps) return;
+      currentStep = n;
+
+      // Toggle step content visibility
+      document.querySelectorAll('.stepper-step').forEach(function(el) {
+        el.classList.toggle('active', el.dataset.stepContent === String(n));
+      });
+
+      // Update indicator circles
+      document.querySelectorAll('.step-indicator__circle').forEach(function(circle) {
+        var step = parseInt(circle.dataset.step);
+        circle.classList.remove('active', 'completed');
+        if (step === n) circle.classList.add('active');
+        else if (step < n) circle.classList.add('completed');
+      });
+
+      // Update indicator labels
+      document.querySelectorAll('.step-indicator__label').forEach(function(label, i) {
+        label.classList.toggle('active', (i + 1) === n);
+      });
+
+      // Update connector lines
+      document.querySelectorAll('.step-indicator__line').forEach(function(line, i) {
+        line.classList.toggle('completed', (i + 1) < n);
+      });
+    }
+
+    // Allow clicking step circles to navigate
+    document.querySelectorAll('.step-indicator__circle').forEach(function(circle) {
+      circle.addEventListener('click', function() {
+        goToStep(parseInt(this.dataset.step));
+      });
+    });
+  </script>
+</body>
+</html>

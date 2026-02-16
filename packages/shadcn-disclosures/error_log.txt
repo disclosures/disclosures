@@ -1,0 +1,6 @@
+The Shadcn component could not be added due to an authorization error with the provided URL. The token appears to be invalid or expired.
+
+Error details:
+You are not authorized to access the item at https://v0.app/chat/b/b_J41zjQSX9nH/json?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..0EQJ-GXEJL9Tll-9.8X_d28igiK0ahEoKLcECzgptB6rEoP_1ttefnmjYw0.bX_eBljJxFbufdt4qSBCXw. If this is a remote registry, you may need to authenticate.
+
+Please provide a new, valid URL for the component or an alternative method to add it.

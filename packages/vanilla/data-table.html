@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Table — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* Table header */
+    .table-header {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
+      gap: 1rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--page-muted);
+      background: var(--page-code-bg);
+      border-bottom: 1px solid var(--page-border);
+    }
+
+    /* Table row disclosure overrides */
+    .table-rows .disclosure {
+      border-bottom: 1px solid var(--page-border);
+      overflow: visible;
+    }
+
+    .table-rows .disclosure:last-child {
+      border-bottom: none;
+    }
+
+    .table-rows .disclosure__summary {
+      padding: 0.85rem 1.25rem;
+    }
+
+    .table-rows .disclosure__indicator {
+      order: -1;
+      margin-right: 0.75rem;
+    }
+
+    .table-rows .disclosure__label {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    .table-rows .disclosure__content-inner {
+      padding: 0 1.25rem 1rem;
+    }
+
+    /* Status badges */
+    .status-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 10px;
+    }
+
+    .status-badge--completed {
+      background: rgba(0, 255, 136, 0.15);
+      color: #00ff88;
+    }
+
+    .status-badge--processing {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+    }
+
+    .status-badge--pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+    }
+
+    /* Expanded detail grid */
+    .order-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding: 1rem;
+      background: var(--page-code-bg);
+      border: 1px solid var(--page-border);
+      border-radius: 6px;
+    }
+
+    .order-detail h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .order-detail__row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.825rem;
+      padding: 0.25rem 0;
+    }
+
+    .order-detail__row span:first-child {
+      color: var(--page-muted);
+    }
+
+    .order-detail__total {
+      border-top: 1px solid var(--page-border);
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    .order-detail__label {
+      font-size: 0.75rem;
+      color: var(--page-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .order-detail__value {
+      font-size: 0.825rem;
+    }
+
+    .order-detail__shipping > div {
+      margin-bottom: 0.75rem;
+    }
+
+    /* Cell font weight */
+    .cell-id { font-weight: 600; }
+    .cell-total { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html" class="active">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">Expandable Rows</span>
+    <h1 class="page-title">Data Table</h1>
+    <p class="page-desc">
+      Display tabular data with expandable rows for additional details. Each row is a
+      <code>&lt;details&gt;</code> element with a grid-based summary.
+    </p>
+
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Recent Orders</div>
+        <div class="demo-section__desc">Click any row to expand and see order details and shipping information.</div>
+      </div>
+      <div style="padding: 0;">
+        <!-- Table Header -->
+        <div class="table-header">
+          <span>Order ID</span>
+          <span>Customer</span>
+          <span>Date</span>
+          <span>Status</span>
+          <span>Total</span>
+        </div>
+
+        <!-- Table Body -->
+        <div class="table-rows">
+          <!-- Row 1 -->
+          <details class="disclosure disclosure--indicator-chevron" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">
+                <span class="cell-id">ORD-001</span>
+                <span>Alice Johnson</span>
+                <span class="text-muted">2024-01-15</span>
+                <span><span class="status-badge status-badge--completed">completed</span></span>
+                <span class="cell-total">$284.00</span>
+              </span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <div class="order-detail">
+                  <div>
+                    <h4>Order Items</h4>
+                    <div class="order-detail__row">
+                      <span>Wireless Keyboard x 1</span>
+                      <span>$89.00</span>
+                    </div>
+                    <div class="order-detail__row">
+                      <span>USB-C Hub x 2</span>
+                      <span>$130.00</span>
+                    </div>
+                    <div class="order-detail__row">
+                      <span>Mouse Pad XL x 1</span>
+                      <span>$65.00</span>
+                    </div>
+                    <div class="order-detail__row order-detail__total">
+                      <span>Total</span>
+                      <span>$284.00</span>
+                    </div>
+                  </div>
+                  <div class="order-detail__shipping">
+                    <h4>Shipping Details</h4>
+                    <div>
+                      <div class="order-detail__label">Address</div>
+                      <div class="order-detail__value">123 Main St, New York, NY 10001</div>
+                    </div>
+                    <div>
+                      <div class="order-detail__label">Method</div>
+                      <div class="order-detail__value">Express Shipping</div>
+                    </div>
+                    <div>
+                      <div class="order-detail__label">Tracking</div>
+                      <div class="order-detail__value font-mono text-xs">1Z999AA10123456784</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Row 2 -->
+          <details class="disclosure disclosure--indicator-chevron" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">
+                <span class="cell-id">ORD-002</span>
+                <span>Bob Smith</span>
+                <span class="text-muted">2024-01-14</span>
+                <span><span class="status-badge status-badge--processing">processing</span></span>
+                <span class="cell-total">$156.50</span>
+              </span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <div class="order-detail">
+                  <div>
+                    <h4>Order Items</h4>
+                    <div class="order-detail__row">
+                      <span>Mechanical Keyboard x 1</span>
+                      <span>$129.00</span>
+                    </div>
+                    <div class="order-detail__row">
+                      <span>Keycap Set x 1</span>
+                      <span>$27.50</span>
+                    </div>
+                    <div class="order-detail__row order-detail__total">
+                      <span>Total</span>
+                      <span>$156.50</span>
+                    </div>
+                  </div>
+                  <div class="order-detail__shipping">
+                    <h4>Shipping Details</h4>
+                    <div>
+                      <div class="order-detail__label">Address</div>
+                      <div class="order-detail__value">456 Oak Ave, Los Angeles, CA 90001</div>
+                    </div>
+                    <div>
+                      <div class="order-detail__label">Method</div>
+                      <div class="order-detail__value">Standard Shipping</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Row 3 -->
+          <details class="disclosure disclosure--indicator-chevron" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">
+                <span class="cell-id">ORD-003</span>
+                <span>Carol Davis</span>
+                <span class="text-muted">2024-01-13</span>
+                <span><span class="status-badge status-badge--pending">pending</span></span>
+                <span class="cell-total">$89.99</span>
+              </span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <div class="order-detail">
+                  <div>
+                    <h4>Order Items</h4>
+                    <div class="order-detail__row">
+                      <span>Webcam HD x 1</span>
+                      <span>$89.99</span>
+                    </div>
+                    <div class="order-detail__row order-detail__total">
+                      <span>Total</span>
+                      <span>$89.99</span>
+                    </div>
+                  </div>
+                  <div class="order-detail__shipping">
+                    <h4>Shipping Details</h4>
+                    <div>
+                      <div class="order-detail__label">Address</div>
+                      <div class="order-detail__value">789 Pine Rd, Chicago, IL 60601</div>
+                    </div>
+                    <div>
+                      <div class="order-detail__label">Method</div>
+                      <div class="order-detail__value">Free Shipping</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits -->
+    <div class="demo-section mt-2">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Why Expandable Rows?</div>
+      </div>
+      <div class="demo-section__body">
+        <ul style="list-style: none; padding: 0;">
+          <li class="text-sm text-muted" style="padding: 0.35rem 0;">
+            <span class="text-accent">&#8226;</span> Show key information in the row, details on demand
+          </li>
+          <li class="text-sm text-muted" style="padding: 0.35rem 0;">
+            <span class="text-accent">&#8226;</span> Maintain scanability while providing depth
+          </li>
+          <li class="text-sm text-muted" style="padding: 0.35rem 0;">
+            <span class="text-accent">&#8226;</span> Reduce navigation by keeping context in place
+          </li>
+          <li class="text-sm text-muted" style="padding: 0.35rem 0;">
+            <span class="text-accent">&#8226;</span> Works well with both mouse and keyboard navigation
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

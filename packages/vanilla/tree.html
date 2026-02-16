@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tree Navigation — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* Tree-specific styles — built on top of core */
+    .tree {
+      font-size: 0.875rem;
+    }
+
+    .tree .disclosure {
+      border: none;
+      overflow: visible;
+    }
+
+    .tree .disclosure__summary {
+      padding: 0.3rem 0;
+      gap: 0.35rem;
+      border-radius: 4px;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .tree .disclosure__summary:hover {
+      background: var(--page-surface);
+    }
+
+    .tree .disclosure__content-inner {
+      padding: 0;
+      padding-left: 1.25rem;
+      border-left: 1px solid var(--page-border);
+      margin-left: 0.6rem;
+    }
+
+    .tree .disclosure__indicator {
+      width: 16px;
+      height: 16px;
+      margin-right: 0.25rem;
+      font-size: 0.7em;
+    }
+
+    /* Tree leaf (non-expandable) items */
+    .tree-leaf {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      padding-left: calc(0.5rem + 16px + 0.25rem); /* align with label text */
+      border-radius: 4px;
+      color: var(--page-fg);
+      cursor: default;
+    }
+
+    .tree-leaf:hover {
+      background: var(--page-surface);
+    }
+
+    .tree-leaf__icon {
+      font-size: 0.85em;
+      width: 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* Folder/file icons via text */
+    .icon-folder::before { content: "\01F4C1"; }
+    .icon-file::before { content: "\01F4C4"; }
+    .icon-ts::before { content: "TS"; font-size: 0.6em; font-weight: 700; color: #3178c6; }
+    .icon-css::before { content: "CSS"; font-size: 0.5em; font-weight: 700; color: #264de4; }
+    .icon-json::before { content: "{ }"; font-size: 0.6em; font-weight: 700; color: #f5a623; }
+    .icon-md::before { content: "MD"; font-size: 0.6em; font-weight: 700; color: var(--page-muted); }
+
+    /* Category tree */
+    .tree--categories .disclosure__summary {
+      font-weight: 500;
+    }
+
+    .tree--categories .tree-leaf {
+      color: var(--page-muted);
+    }
+
+    .tree--categories .tree-leaf:hover {
+      color: var(--page-fg);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html" class="active">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">Higher-Level Pattern</span>
+    <h1 class="page-title">Tree Navigation</h1>
+    <p class="page-desc">
+      A hierarchical tree view built on core disclosure primitives with custom CSS for
+      indentation, tree lines, and file/folder icons.
+    </p>
+
+    <div class="info-box">
+      <span class="info-box__icon">i</span>
+      <span>Core doesn't include a Tree component. This mockup shows how to construct one
+      from nested <code>&lt;details&gt;</code> elements with custom CSS layered on top.</span>
+    </div>
+
+    <!-- File System Tree -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">File System</div>
+        <div class="demo-section__desc">A project directory tree with expandable folders and file icons.</div>
+      </div>
+      <div class="demo-section__body">
+        <div class="tree">
+          <!-- project root -->
+          <details class="disclosure disclosure--indicator-chevron" data-animated open>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">my-project</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <!-- src/ -->
+                <details class="disclosure disclosure--indicator-chevron" data-animated open>
+                  <summary class="disclosure__summary">
+                    <span class="disclosure__indicator" aria-hidden="true"></span>
+                    <span class="disclosure__label">src</span>
+                  </summary>
+                  <div class="disclosure__content">
+                    <div class="disclosure__content-inner">
+                      <!-- components/ -->
+                      <details class="disclosure disclosure--indicator-chevron" data-animated>
+                        <summary class="disclosure__summary">
+                          <span class="disclosure__indicator" aria-hidden="true"></span>
+                          <span class="disclosure__label">components</span>
+                        </summary>
+                        <div class="disclosure__content">
+                          <div class="disclosure__content-inner">
+                            <div class="tree-leaf"><span class="tree-leaf__icon icon-ts"></span> Button.tsx</div>
+                            <div class="tree-leaf"><span class="tree-leaf__icon icon-ts"></span> Header.tsx</div>
+                            <div class="tree-leaf"><span class="tree-leaf__icon icon-ts"></span> Sidebar.tsx</div>
+                          </div>
+                        </div>
+                      </details>
+
+                      <!-- styles/ -->
+                      <details class="disclosure disclosure--indicator-chevron" data-animated>
+                        <summary class="disclosure__summary">
+                          <span class="disclosure__indicator" aria-hidden="true"></span>
+                          <span class="disclosure__label">styles</span>
+                        </summary>
+                        <div class="disclosure__content">
+                          <div class="disclosure__content-inner">
+                            <div class="tree-leaf"><span class="tree-leaf__icon icon-css"></span> globals.css</div>
+                            <div class="tree-leaf"><span class="tree-leaf__icon icon-css"></span> tokens.css</div>
+                          </div>
+                        </div>
+                      </details>
+
+                      <div class="tree-leaf"><span class="tree-leaf__icon icon-ts"></span> index.ts</div>
+                      <div class="tree-leaf"><span class="tree-leaf__icon icon-ts"></span> app.ts</div>
+                    </div>
+                  </div>
+                </details>
+
+                <div class="tree-leaf"><span class="tree-leaf__icon icon-json"></span> package.json</div>
+                <div class="tree-leaf"><span class="tree-leaf__icon icon-json"></span> tsconfig.json</div>
+                <div class="tree-leaf"><span class="tree-leaf__icon icon-md"></span> README.md</div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Tree -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Category Navigation</div>
+        <div class="demo-section__desc">A settings or documentation sidebar with expandable categories.</div>
+      </div>
+      <div class="demo-section__body">
+        <div class="tree tree--categories">
+          <details class="disclosure disclosure--indicator-chevron" data-animated open>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Account</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <div class="tree-leaf">Profile</div>
+                <div class="tree-leaf">Security</div>
+                <div class="tree-leaf">Billing</div>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--indicator-chevron" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Preferences</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <div class="tree-leaf">Appearance</div>
+                <div class="tree-leaf">Language</div>
+                <div class="tree-leaf">Accessibility</div>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--indicator-chevron" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Integrations</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <details class="disclosure disclosure--indicator-chevron" data-animated>
+                  <summary class="disclosure__summary">
+                    <span class="disclosure__indicator" aria-hidden="true"></span>
+                    <span class="disclosure__label">APIs</span>
+                  </summary>
+                  <div class="disclosure__content">
+                    <div class="disclosure__content-inner">
+                      <div class="tree-leaf">REST</div>
+                      <div class="tree-leaf">GraphQL</div>
+                      <div class="tree-leaf">Webhooks</div>
+                    </div>
+                  </div>
+                </details>
+                <div class="tree-leaf">OAuth Apps</div>
+                <div class="tree-leaf">CI/CD</div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <span class="info-box__icon">i</span>
+      <span>Keyboard navigation: Tab to move between summaries, Enter or Space to toggle.
+      Arrow-key navigation within the tree would require additional JavaScript.</span>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

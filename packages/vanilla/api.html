@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programmatic API — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* Console output */
+    .console {
+      background: #111;
+      border: 1px solid var(--page-border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.75rem;
+      color: #aaa;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 1rem;
+    }
+
+    .console__line {
+      padding: 0.15rem 0;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .console__line:last-child {
+      border-bottom: none;
+    }
+
+    .console__line--event {
+      color: var(--page-accent);
+    }
+
+    .console__line--info {
+      color: #60a5fa;
+    }
+
+    .console__label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .console__clear {
+      font-size: 0.7rem;
+      color: var(--page-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
+    }
+
+    .console__clear:hover {
+      color: var(--page-fg);
+    }
+
+    /* Button row */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html" class="active">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">JavaScript API</span>
+    <h1 class="page-title">Programmatic API</h1>
+    <p class="page-desc">
+      The JS API that framework wrappers abstract over. Use <code>AnimatedDetails</code>
+      for individual elements and <code>DetailsGroup</code> for accordion behavior.
+    </p>
+
+    <!-- AnimatedDetails -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">AnimatedDetails</div>
+        <div class="demo-section__desc">Manual initialization with custom options, plus <code>.open()</code>, <code>.close()</code>, <code>.toggle()</code> methods.</div>
+      </div>
+      <div class="demo-section__body">
+        <details id="apiDemo1" class="disclosure disclosure--indicator-chevron">
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">Programmatically controlled disclosure</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p>This disclosure was initialized manually with <code>new AnimatedDetails(el, { duration: 500, easing: 'ease-out' })</code>. Use the buttons below to control it.</p>
+            </div>
+          </div>
+        </details>
+
+        <div class="btn-row">
+          <button class="btn" onclick="ad1.open(); log('console1', 'ad.open()', 'event')">Open</button>
+          <button class="btn" onclick="ad1.close(); log('console1', 'ad.close()', 'event')">Close</button>
+          <button class="btn" onclick="ad1.toggle(); log('console1', 'ad.toggle()', 'event')">Toggle</button>
+          <button class="btn" onclick="ad1.destroy(); log('console1', 'ad.destroy() — click handler removed', 'info')">Destroy</button>
+        </div>
+
+        <div class="console__label">
+          <span class="text-xs text-muted">Console</span>
+          <button class="console__clear" onclick="clearConsole('console1')">Clear</button>
+        </div>
+        <div class="console" id="console1">
+          <div class="console__line console__line--info">new AnimatedDetails(el, { duration: 500, easing: 'ease-out' })</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Initialization Code -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Initialization Patterns</div>
+        <div class="demo-section__desc">Different ways to initialize disclosures.</div>
+      </div>
+      <div class="demo-section__body">
+        <pre class="code-block">// Auto-init all [data-animated] and [data-disclosure-group]
+Disclosures.autoInit();
+
+// Manual init with defaults
+var ad = new Disclosures.AnimatedDetails(el);
+
+// Manual init with custom options
+var ad = new Disclosures.AnimatedDetails(el, {
+  duration: 500,
+  easing: 'ease-out',
+  contentSelector: '.disclosure__content'
+});
+
+// Methods
+ad.open();
+ad.close();
+ad.toggle();
+ad.destroy();</pre>
+      </div>
+    </div>
+
+    <!-- DetailsGroup -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">DetailsGroup</div>
+        <div class="demo-section__desc">Programmatic accordion control with <code>.openByIndex()</code>, <code>.closeAll()</code>, <code>.destroy()</code>.</div>
+      </div>
+      <div class="demo-section__body">
+        <div id="apiGroupContainer">
+          <details id="groupItem0" class="disclosure disclosure--faq disclosure--indicator-plus">
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Group Item 1</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Content for the first group item.</p>
+              </div>
+            </div>
+          </details>
+
+          <details id="groupItem1" class="disclosure disclosure--faq disclosure--indicator-plus">
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Group Item 2</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Content for the second group item.</p>
+              </div>
+            </div>
+          </details>
+
+          <details id="groupItem2" class="disclosure disclosure--faq disclosure--indicator-plus">
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Group Item 3</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Content for the third group item.</p>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" onclick="group.openByIndex(0); log('console2', 'group.openByIndex(0)', 'event')">Open #1</button>
+          <button class="btn" onclick="group.openByIndex(1); log('console2', 'group.openByIndex(1)', 'event')">Open #2</button>
+          <button class="btn" onclick="group.openByIndex(2); log('console2', 'group.openByIndex(2)', 'event')">Open #3</button>
+          <button class="btn" onclick="group.closeAll(); log('console2', 'group.closeAll()', 'event')">Close All</button>
+          <button class="btn" onclick="group.destroy(); log('console2', 'group.destroy() — accordion behavior removed', 'info')">Destroy</button>
+        </div>
+
+        <div class="console__label">
+          <span class="text-xs text-muted">Console</span>
+          <button class="console__clear" onclick="clearConsole('console2')">Clear</button>
+        </div>
+        <div class="console" id="console2">
+          <div class="console__line console__line--info">new DetailsGroup(container, { exclusive: true })</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DetailsGroup Code -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">DetailsGroup API</div>
+      </div>
+      <div class="demo-section__body">
+        <pre class="code-block">// Functional style — returns cleanup function
+var cleanup = Disclosures.initDetailsGroup(container, {
+  exclusive: true
+});
+cleanup(); // remove listeners
+
+// Class style — more control
+var group = new Disclosures.DetailsGroup(container, {
+  exclusive: true
+});
+group.openByIndex(0);
+group.closeAll();
+group.destroy();</pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>
+    // Manual init for AnimatedDetails demo
+    var el1 = document.getElementById('apiDemo1');
+    var ad1 = new Disclosures.AnimatedDetails(el1, { duration: 500, easing: 'ease-out' });
+
+    // Manual init for each group item (animation)
+    document.querySelectorAll('#apiGroupContainer details').forEach(function(el) {
+      new Disclosures.AnimatedDetails(el);
+    });
+
+    // DetailsGroup
+    var groupContainer = document.getElementById('apiGroupContainer');
+    var group = new Disclosures.DetailsGroup(groupContainer, { exclusive: true });
+
+    // Console helpers
+    function log(consoleId, message, type) {
+      var el = document.getElementById(consoleId);
+      var line = document.createElement('div');
+      line.className = 'console__line' + (type ? ' console__line--' + type : '');
+      line.textContent = '> ' + message;
+      el.appendChild(line);
+      el.scrollTop = el.scrollHeight;
+    }
+
+    function clearConsole(consoleId) {
+      document.getElementById(consoleId).innerHTML = '';
+    }
+  </script>
+</body>
+</html>

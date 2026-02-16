@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nested Depth — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* Depth backgrounds via nesting level */
+    .depth-demo .disclosure {
+      background: var(--depth-1-bg);
+      padding-left: 0.75rem;
+      border-left: 2px solid var(--page-border);
+      margin-top: 0.5rem;
+    }
+
+    .depth-demo .disclosure .disclosure {
+      background: var(--depth-2-bg);
+    }
+
+    .depth-demo .disclosure .disclosure .disclosure {
+      background: var(--depth-3-bg);
+    }
+
+    /* Depth swatch */
+    .depth-swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .depth-swatch__level {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+    }
+
+    .depth-swatch__level span:first-child {
+      font-weight: 600;
+      color: var(--page-fg);
+    }
+
+    .depth-swatch__level span:last-child {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--page-muted);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html" class="active">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">Hierarchical Nesting</span>
+    <h1 class="page-title">Nested Hierarchy</h1>
+    <p class="page-desc">
+      Disclosures can be nested to create multi-level hierarchies. Visual depth is
+      communicated through subtle background color changes.
+    </p>
+
+    <div class="info-box">
+      <span class="info-box__icon">i</span>
+      <span>Notice how each nesting level has a slightly different background. This visual cue
+      helps users understand their position in the hierarchy.</span>
+    </div>
+
+    <!-- Documentation Structure -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Documentation Structure</div>
+        <div class="demo-section__desc">An example of nested disclosures organizing documentation content.</div>
+      </div>
+      <div class="demo-section__body depth-demo">
+        <!-- L1: Getting Started -->
+        <details class="disclosure disclosure--indicator-chevron" data-animated open>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">Getting Started</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p class="text-muted text-sm mb-2">Everything you need to know to start using the component library.</p>
+
+              <!-- L2: Installation -->
+              <details class="disclosure disclosure--indicator-chevron" data-animated>
+                <summary class="disclosure__summary">
+                  <span class="disclosure__indicator" aria-hidden="true"></span>
+                  <span class="disclosure__label">Installation</span>
+                </summary>
+                <div class="disclosure__content">
+                  <div class="disclosure__content-inner">
+                    <p class="text-muted text-sm mb-2">Install the package using your preferred package manager.</p>
+
+                    <!-- L3: npm -->
+                    <details class="disclosure disclosure--indicator-chevron" data-animated>
+                      <summary class="disclosure__summary">
+                        <span class="disclosure__indicator" aria-hidden="true"></span>
+                        <span class="disclosure__label">npm</span>
+                      </summary>
+                      <div class="disclosure__content">
+                        <div class="disclosure__content-inner">
+                          <pre class="code-block">npm install @disclosures/core</pre>
+                        </div>
+                      </div>
+                    </details>
+
+                    <!-- L3: yarn -->
+                    <details class="disclosure disclosure--indicator-chevron" data-animated>
+                      <summary class="disclosure__summary">
+                        <span class="disclosure__indicator" aria-hidden="true"></span>
+                        <span class="disclosure__label">yarn</span>
+                      </summary>
+                      <div class="disclosure__content">
+                        <div class="disclosure__content-inner">
+                          <pre class="code-block">yarn add @disclosures/core</pre>
+                        </div>
+                      </div>
+                    </details>
+
+                    <!-- L3: pnpm -->
+                    <details class="disclosure disclosure--indicator-chevron" data-animated>
+                      <summary class="disclosure__summary">
+                        <span class="disclosure__indicator" aria-hidden="true"></span>
+                        <span class="disclosure__label">pnpm</span>
+                      </summary>
+                      <div class="disclosure__content">
+                        <div class="disclosure__content-inner">
+                          <pre class="code-block">pnpm add @disclosures/core</pre>
+                        </div>
+                      </div>
+                    </details>
+                  </div>
+                </div>
+              </details>
+
+              <!-- L2: Basic Usage -->
+              <details class="disclosure disclosure--indicator-chevron" data-animated>
+                <summary class="disclosure__summary">
+                  <span class="disclosure__indicator" aria-hidden="true"></span>
+                  <span class="disclosure__label">Basic Usage</span>
+                </summary>
+                <div class="disclosure__content">
+                  <div class="disclosure__content-inner">
+                    <p class="text-muted text-sm mb-2">Add the CSS and JS to your page, then use the markup pattern.</p>
+                    <pre class="code-block">&lt;link rel="stylesheet" href="@disclosures/core/dist/styles.css"&gt;
+&lt;script src="@disclosures/core/dist/index.global.js"&gt;&lt;/script&gt;
+&lt;script&gt;Disclosures.autoInit();&lt;/script&gt;</pre>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </div>
+        </details>
+
+        <!-- L1: Components -->
+        <details class="disclosure disclosure--indicator-chevron" data-animated>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">Components</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p class="text-muted text-sm mb-2">Reference documentation for all available components.</p>
+
+              <details class="disclosure disclosure--indicator-chevron" data-animated>
+                <summary class="disclosure__summary">
+                  <span class="disclosure__indicator" aria-hidden="true"></span>
+                  <span class="disclosure__label">AnimatedDetails</span>
+                </summary>
+                <div class="disclosure__content">
+                  <div class="disclosure__content-inner">
+                    <p class="text-muted text-sm">The core class that wraps a native &lt;details&gt; element and adds smooth height transitions using the Web Animations API.</p>
+                  </div>
+                </div>
+              </details>
+
+              <details class="disclosure disclosure--indicator-chevron" data-animated>
+                <summary class="disclosure__summary">
+                  <span class="disclosure__indicator" aria-hidden="true"></span>
+                  <span class="disclosure__label">DetailsGroup</span>
+                </summary>
+                <div class="disclosure__content">
+                  <div class="disclosure__content-inner">
+                    <p class="text-muted text-sm">Manages a group of details elements as an accordion, ensuring only one is open at a time.</p>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </div>
+        </details>
+
+        <!-- L1: API Reference -->
+        <details class="disclosure disclosure--indicator-chevron" data-animated>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">API Reference</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p class="text-muted text-sm">Detailed API documentation for options, methods, and CSS custom properties.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Depth Colors -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Visual Depth Levels</div>
+        <div class="demo-section__desc">Each nesting level uses a distinct background color for spatial awareness.</div>
+      </div>
+      <div class="demo-section__body">
+        <div class="depth-swatch">
+          <div class="depth-swatch__level" style="background: var(--depth-1-bg);">
+            <span>Level 1</span>
+            <span>--depth-1-bg</span>
+          </div>
+          <div class="depth-swatch__level" style="background: var(--depth-2-bg); margin-left: 1rem;">
+            <span>Level 2</span>
+            <span>--depth-2-bg</span>
+          </div>
+          <div class="depth-swatch__level" style="background: var(--depth-3-bg); margin-left: 2rem;">
+            <span>Level 3</span>
+            <span>--depth-3-bg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

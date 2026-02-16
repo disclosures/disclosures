@@ -1,4 +1,4 @@
-export { AnimatedDetails } from './animated-details';
+export { AnimatedDetails, instanceRegistry } from './animated-details';
 export type { AnimatedDetailsOptions } from './animated-details';
 
 export { initDetailsGroup, DetailsGroup } from './details-group';

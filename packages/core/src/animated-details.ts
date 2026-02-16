@@ -10,6 +10,12 @@ export interface AnimatedDetailsOptions {
 	contentSelector?: string;
 }
 
+/**
+ * Registry mapping DOM elements to their AnimatedDetails instances.
+ * Used by DetailsGroup to call animated close/open instead of direct DOM manipulation.
+ */
+export const instanceRegistry = new WeakMap<HTMLDetailsElement, AnimatedDetails>();
+
 const DEFAULT_OPTIONS: Required<AnimatedDetailsOptions> = {
 	duration: 300,
 	easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -55,6 +61,14 @@ export class AnimatedDetails {
 
 		this.boundOnClick = (e) => this.onClick(e);
 		this.summary.addEventListener('click', this.boundOnClick);
+		instanceRegistry.set(el, this);
+	}
+
+	/**
+	 * Get the AnimatedDetails instance for a given element, if one exists.
+	 */
+	static getInstance(el: HTMLDetailsElement): AnimatedDetails | undefined {
+		return instanceRegistry.get(el);
 	}
 
 	/**
@@ -172,5 +186,6 @@ export class AnimatedDetails {
 		if (this.animation) {
 			this.animation.cancel();
 		}
+		instanceRegistry.delete(this.el);
 	}
 }

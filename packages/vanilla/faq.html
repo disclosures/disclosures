@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ / Accordion — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">DisclosureGroup</span>
+    <h1 class="page-title">FAQ / Accordion</h1>
+    <p class="page-desc">
+      Group disclosures together with exclusive (accordion) or non-exclusive (multi-open) behavior.
+      Uses <code>data-disclosure-group</code> for automatic initialization.
+    </p>
+
+    <!-- Exclusive (Accordion) -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Exclusive Group (Accordion)</div>
+        <div class="demo-section__desc">Opening one item automatically closes the others. Only one answer is visible at a time.</div>
+      </div>
+      <div class="demo-section__body">
+        <div data-disclosure-group>
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">What is @disclosures/core?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>A lightweight, framework-agnostic library for animated disclosure components. It provides smooth height transitions for native &lt;details&gt; elements using the Web Animations API.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Is it accessible?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Yes. It uses native &lt;details&gt;/&lt;summary&gt; elements, respects <code>prefers-reduced-motion</code>, supports keyboard navigation (Tab + Enter/Space), and includes focus-visible styles.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">What browsers are supported?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>All modern browsers that support the Web Animations API: Chrome, Firefox, Safari, and Edge.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Does it have dependencies?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Zero dependencies. It is pure TypeScript/JavaScript with CSS. The IIFE build is a single file you can load via a &lt;script&gt; tag.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">Can I use it with React / Vue / Svelte?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Absolutely. The core library is framework-agnostic. Framework-specific wrappers (like <code>shadcn-disclosures</code> for React) can be built on top of the CSS and JS primitives.</p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Non-Exclusive (Multi-Open) -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Non-Exclusive Group (Multi-Open)</div>
+        <div class="demo-section__desc">Multiple items can be open simultaneously. Set <code>data-disclosure-group="false"</code>.</div>
+      </div>
+      <div class="demo-section__body">
+        <div data-disclosure-group="false">
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">How do I install it?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Via npm: <code>npm install @disclosures/core</code>, or load the IIFE build directly from a CDN with a &lt;script&gt; tag.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">How do I customize the animation?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>Override the CSS custom properties <code>--disclosure-duration</code> and <code>--disclosure-easing</code>, or pass options to <code>new AnimatedDetails(el, { duration: 500, easing: 'ease-out' })</code>.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated>
+            <summary class="disclosure__summary">
+              <span class="disclosure__indicator" aria-hidden="true"></span>
+              <span class="disclosure__label">How do I style it?</span>
+            </summary>
+            <div class="disclosure__content">
+              <div class="disclosure__content-inner">
+                <p>The library uses BEM classes (<code>.disclosure</code>, <code>.disclosure__summary</code>, etc.) and CSS custom properties. You can override any token or add your own variant classes.</p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison -->
+    <div class="info-box">
+      <span class="info-box__icon">i</span>
+      <div>
+        <strong style="color: var(--page-fg);">Exclusive vs. Non-Exclusive</strong>
+        <p class="mt-1">
+          <code>data-disclosure-group</code> (or <code>data-disclosure-group="true"</code>) creates an accordion where only one item is open at a time.
+          <code>data-disclosure-group="false"</code> allows multiple items to be open simultaneously.
+        </p>
+      </div>
+    </div>
+
+    <!-- Markup Reference -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">HTML Markup</div>
+        <div class="demo-section__desc">Wrap multiple disclosures in a container with <code>data-disclosure-group</code>.</div>
+      </div>
+      <div class="demo-section__body">
+        <pre class="code-block">&lt;!-- Exclusive (accordion) --&gt;
+&lt;div data-disclosure-group&gt;
+  &lt;details class="disclosure disclosure--faq disclosure--indicator-plus" data-animated&gt;
+    &lt;summary class="disclosure__summary"&gt;
+      &lt;span class="disclosure__indicator" aria-hidden="true"&gt;&lt;/span&gt;
+      &lt;span class="disclosure__label"&gt;Question 1&lt;/span&gt;
+    &lt;/summary&gt;
+    &lt;div class="disclosure__content"&gt;
+      &lt;div class="disclosure__content-inner"&gt;Answer 1&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/details&gt;
+  &lt;!-- more items... --&gt;
+&lt;/div&gt;
+
+&lt;!-- Non-exclusive (multi-open) --&gt;
+&lt;div data-disclosure-group="false"&gt;
+  &lt;!-- same markup --&gt;
+&lt;/div&gt;</pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

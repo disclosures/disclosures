@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theming &amp; Tokens — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* Token table */
+    .token-table {
+      width: 100%;
+      font-size: 0.8rem;
+      border-collapse: collapse;
+    }
+
+    .token-table th {
+      text-align: left;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 2px solid var(--page-border);
+      color: var(--page-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .token-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--page-border);
+      vertical-align: middle;
+    }
+
+    .token-table td:first-child {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--page-accent);
+      white-space: nowrap;
+    }
+
+    .token-table td:last-child {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--page-muted);
+    }
+
+    /* Color swatch inline */
+    .swatch {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      border: 1px solid var(--page-border);
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    /* Theme preview cards */
+    .theme-preview {
+      border: 1px solid var(--page-border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .theme-preview__label {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--page-code-bg);
+      border-bottom: 1px solid var(--page-border);
+      color: var(--page-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .theme-preview__body {
+      padding: 1.25rem;
+    }
+
+    /* Custom theme scopes */
+    .theme-light {
+      --disclosure-indicator-color: #999;
+      --disclosure-indicator-color-open: #059669;
+      --disclosure-panel-bg: #fff;
+      --disclosure-panel-bg-open: #f9fafb;
+      --disclosure-panel-border: #e0e0e0;
+      --disclosure-faq-border: #e0e0e0;
+      background: #fafafa;
+      color: #111;
+    }
+
+    .theme-custom {
+      --disclosure-indicator-color: #888;
+      --disclosure-indicator-color-open: #f59e0b;
+      --disclosure-panel-bg: #1e1b2e;
+      --disclosure-panel-bg-open: #251f3a;
+      --disclosure-panel-border: #3d3558;
+      --disclosure-faq-border: #3d3558;
+      background: #13111c;
+      color: #e8e5f0;
+    }
+
+    /* Theme toggle buttons */
+    .theme-toggle {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .theme-toggle .btn.selected {
+      border-color: var(--page-accent);
+      color: var(--page-accent);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html" class="active">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">CSS Custom Properties</span>
+    <h1 class="page-title">Theming &amp; Tokens</h1>
+    <p class="page-desc">
+      All visual properties are exposed as CSS custom properties. Override them at any scope
+      to create custom themes. Use <code>tokens.css</code> alone for maximum control.
+    </p>
+
+    <!-- Token Reference -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">CSS Custom Properties</div>
+        <div class="demo-section__desc">All available tokens with their default values.</div>
+      </div>
+      <div class="demo-section__body" style="overflow-x: auto;">
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Purpose</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>--disclosure-duration</td>
+              <td>Animation duration</td>
+              <td>300ms</td>
+            </tr>
+            <tr>
+              <td>--disclosure-easing</td>
+              <td>Animation timing function</td>
+              <td>cubic-bezier(0.4, 0, 0.2, 1)</td>
+            </tr>
+            <tr>
+              <td>--disclosure-indicator-size</td>
+              <td>Indicator width/height</td>
+              <td>20px</td>
+            </tr>
+            <tr>
+              <td>--disclosure-indicator-color</td>
+              <td><span class="swatch" style="background: #666;"></span>Indicator color (closed)</td>
+              <td>#666</td>
+            </tr>
+            <tr>
+              <td>--disclosure-indicator-color-open</td>
+              <td><span class="swatch" style="background: #00ff88;"></span>Indicator color (open)</td>
+              <td>#00ff88</td>
+            </tr>
+            <tr>
+              <td>--disclosure-padding-x</td>
+              <td>Summary horizontal padding</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>--disclosure-padding-y</td>
+              <td>Summary vertical padding</td>
+              <td>8px</td>
+            </tr>
+            <tr>
+              <td>--disclosure-content-padding</td>
+              <td>Content area padding</td>
+              <td>8px</td>
+            </tr>
+            <tr>
+              <td>--disclosure-indicator-gap</td>
+              <td>Gap between indicator and label</td>
+              <td>8px</td>
+            </tr>
+            <tr>
+              <td>--disclosure-panel-bg</td>
+              <td><span class="swatch" style="background: #1a1a1a;"></span>Panel background (closed)</td>
+              <td>#1a1a1a</td>
+            </tr>
+            <tr>
+              <td>--disclosure-panel-bg-open</td>
+              <td><span class="swatch" style="background: #161616;"></span>Panel background (open)</td>
+              <td>#161616</td>
+            </tr>
+            <tr>
+              <td>--disclosure-panel-border</td>
+              <td><span class="swatch" style="background: #333;"></span>Panel border color</td>
+              <td>#333</td>
+            </tr>
+            <tr>
+              <td>--disclosure-panel-padding</td>
+              <td>Panel content padding</td>
+              <td>8px 16px</td>
+            </tr>
+            <tr>
+              <td>--disclosure-faq-border</td>
+              <td><span class="swatch" style="background: #333;"></span>FAQ divider color</td>
+              <td>#333</td>
+            </tr>
+            <tr>
+              <td>--disclosure-faq-font-size</td>
+              <td>FAQ question font size</td>
+              <td>18px</td>
+            </tr>
+            <tr>
+              <td>--disclosure-faq-content-padding</td>
+              <td>FAQ answer padding</td>
+              <td>16px 0 0 24px</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Theme Previews -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Theme Previews</div>
+        <div class="demo-section__desc">Override tokens to create different themes. Each preview below uses a scoped CSS override.</div>
+      </div>
+      <div class="demo-section__body">
+        <!-- Dark (Default) -->
+        <div class="theme-preview">
+          <div class="theme-preview__label">Dark Theme (Default)</div>
+          <div class="theme-preview__body">
+            <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated>
+              <summary class="disclosure__summary">
+                <span class="disclosure__indicator" aria-hidden="true"></span>
+                <span class="disclosure__label">Dark panel disclosure</span>
+              </summary>
+              <div class="disclosure__content">
+                <div class="disclosure__content-inner">
+                  <p>This uses the default dark theme token values.</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- Light -->
+        <div class="theme-preview">
+          <div class="theme-preview__label">Light Theme</div>
+          <div class="theme-preview__body theme-light">
+            <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated>
+              <summary class="disclosure__summary">
+                <span class="disclosure__indicator" aria-hidden="true"></span>
+                <span class="disclosure__label">Light panel disclosure</span>
+              </summary>
+              <div class="disclosure__content">
+                <div class="disclosure__content-inner">
+                  <p style="color: #666;">Override indicator and panel tokens for a light appearance.</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- Custom Accent -->
+        <div class="theme-preview">
+          <div class="theme-preview__label">Custom Accent (Purple + Amber)</div>
+          <div class="theme-preview__body theme-custom">
+            <details class="disclosure disclosure--panel disclosure--indicator-chevron" data-animated>
+              <summary class="disclosure__summary">
+                <span class="disclosure__indicator" aria-hidden="true"></span>
+                <span class="disclosure__label">Custom themed disclosure</span>
+              </summary>
+              <div class="disclosure__content">
+                <div class="disclosure__content-inner">
+                  <p style="color: #a8a0c0;">Any color scheme can be applied by overriding the CSS custom properties.</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme Override Code -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Creating a Custom Theme</div>
+        <div class="demo-section__desc">Override tokens at any CSS scope.</div>
+      </div>
+      <div class="demo-section__body">
+        <pre class="code-block">/* Light theme override */
+.my-light-theme {
+  --disclosure-indicator-color: #999;
+  --disclosure-indicator-color-open: #059669;
+  --disclosure-panel-bg: #fff;
+  --disclosure-panel-bg-open: #f9fafb;
+  --disclosure-panel-border: #e0e0e0;
+  --disclosure-faq-border: #e0e0e0;
+}
+
+/* Or use tokens.css for full control */
+&lt;link rel="stylesheet" href="@disclosures/core/dist/tokens.css"&gt;
+/* tokens.css provides ONLY the custom properties —
+   you supply all structural styles yourself. */</pre>
+      </div>
+    </div>
+
+    <!-- Accessibility -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Accessibility Features</div>
+      </div>
+      <div class="demo-section__body">
+        <div style="margin-bottom: 1.25rem;">
+          <div class="font-bold mb-1">prefers-reduced-motion</div>
+          <p class="text-sm text-muted">
+            When the user has reduced motion enabled, the indicator transition is disabled via CSS
+            and the JS animation duration is set to <code>0</code>. Content still opens/closes
+            but without animated height transitions.
+          </p>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <div class="font-bold mb-1">focus-visible</div>
+          <p class="text-sm text-muted">
+            Summary elements receive a <code>2px solid</code> outline using the accent color
+            when focused via keyboard (Tab navigation). Mouse clicks do not trigger the outline.
+          </p>
+          <p class="text-sm text-muted mt-1">Try it: press <kbd style="padding: 0.1rem 0.4rem; border: 1px solid var(--page-border); border-radius: 3px; font-size: 0.75rem;">Tab</kbd> to focus the disclosures above.</p>
+        </div>
+
+        <pre class="code-block">/* Built-in reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .disclosure__indicator {
+    transition: none;
+  }
+}
+
+/* Built-in focus-visible styles */
+.disclosure__summary:focus-visible {
+  outline: 2px solid var(--disclosure-indicator-color-open);
+  outline-offset: 2px;
+}</pre>
+      </div>
+    </div>
+
+    <!-- tokens.css vs styles.css -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">tokens.css vs styles.css</div>
+      </div>
+      <div class="demo-section__body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div style="padding: 1rem; border: 1px solid var(--page-border); border-radius: 6px;">
+            <div class="font-bold mb-1 text-sm">styles.css</div>
+            <p class="text-xs text-muted">Tokens + BEM classes + variants + indicators. Drop in and go.</p>
+            <pre class="code-block mt-1" style="font-size: 0.7rem;">&lt;link rel="stylesheet"
+  href="dist/styles.css"&gt;</pre>
+          </div>
+          <div style="padding: 1rem; border: 1px solid var(--page-border); border-radius: 6px;">
+            <div class="font-bold mb-1 text-sm">tokens.css</div>
+            <p class="text-xs text-muted">Only CSS custom properties. You write all structural CSS yourself.</p>
+            <pre class="code-block mt-1" style="font-size: 0.7rem;">&lt;link rel="stylesheet"
+  href="dist/tokens.css"&gt;</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

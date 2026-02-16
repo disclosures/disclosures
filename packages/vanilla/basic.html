@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Disclosure — Vanilla Mockups</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">disclosures</a>
+      <a href="basic.html" class="active">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-badge">&lt;Details /&gt; &lt;Summary /&gt; &lt;Content /&gt;</span>
+    <h1 class="page-title">Basic Disclosure</h1>
+    <p class="page-desc">
+      The foundational building blocks. A summary acts as the visible trigger,
+      while content holds information that appears on interaction.
+    </p>
+
+    <!-- Single Disclosure -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Single Disclosure</div>
+        <div class="demo-section__desc">Click the summary to reveal hidden content with smooth animation.</div>
+      </div>
+      <div class="demo-section__body">
+        <details class="disclosure disclosure--indicator-chevron" data-animated>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">What is progressive disclosure?</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p>Progressive disclosure is an interaction design pattern that sequences information
+              and actions across several screens to reduce feelings of overwhelm. The idea is to
+              show only essential information at first, providing additional details on demand.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Indicator Variants -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Indicator Variants</div>
+        <div class="demo-section__desc">Different visual indicators communicate expandability in various ways.</div>
+      </div>
+      <div class="demo-section__body">
+        <details class="disclosure disclosure--indicator-chevron" data-animated>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">Chevron Indicator (Default)</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p>The chevron rotates 90 degrees when expanded, providing a clear directional cue.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="disclosure disclosure--indicator-plus" data-animated>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">Plus/Minus Indicator</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p>Plus transforms to minus when expanded. Common in FAQ patterns and form builders.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="disclosure disclosure--indicator-arrow" data-animated>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">Arrow Down Indicator</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p>Arrow rotates 180 degrees when expanded. Often used in dropdown-style disclosures.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="disclosure disclosure--indicator-none" data-animated>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">No Indicator</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p>No visual indicator. The summary text itself acts as the affordance. Useful when the
+              interaction is implicit from context.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Default Open -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">Default Open</div>
+        <div class="demo-section__desc">Use the native <code>open</code> attribute to start expanded.</div>
+      </div>
+      <div class="demo-section__body">
+        <details class="disclosure disclosure--indicator-chevron" data-animated open>
+          <summary class="disclosure__summary">
+            <span class="disclosure__indicator" aria-hidden="true"></span>
+            <span class="disclosure__label">I start open by default</span>
+          </summary>
+          <div class="disclosure__content">
+            <div class="disclosure__content-inner">
+              <p>This disclosure starts in the open state. Click the summary to collapse it,
+              then click again to re-expand with animation.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Markup Reference -->
+    <div class="demo-section">
+      <div class="demo-section__header">
+        <div class="demo-section__title">HTML Markup</div>
+        <div class="demo-section__desc">The minimal markup needed for a single animated disclosure.</div>
+      </div>
+      <div class="demo-section__body">
+        <pre class="code-block">&lt;details class="disclosure disclosure--indicator-chevron" data-animated&gt;
+  &lt;summary class="disclosure__summary"&gt;
+    &lt;span class="disclosure__indicator" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;span class="disclosure__label"&gt;Click to expand&lt;/span&gt;
+  &lt;/summary&gt;
+  &lt;div class="disclosure__content"&gt;
+    &lt;div class="disclosure__content-inner"&gt;
+      &lt;p&gt;Hidden content here&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/details&gt;
+
+&lt;script src="@disclosures/core/dist/index.global.js"&gt;&lt;/script&gt;
+&lt;script&gt;Disclosures.autoInit();&lt;/script&gt;</pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

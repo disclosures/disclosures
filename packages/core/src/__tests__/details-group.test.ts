@@ -1,5 +1,14 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { initDetailsGroup, DetailsGroup } from '../details-group';
+import { AnimatedDetails, instanceRegistry } from '../animated-details';
+
+// Mock the Web Animations API
+const mockAnimate = vi.fn(() => ({
+	onfinish: null as (() => void) | null,
+	oncancel: null as (() => void) | null,
+	cancel: vi.fn(),
+}));
+HTMLElement.prototype.animate = mockAnimate as unknown as typeof HTMLElement.prototype.animate;
 
 describe('initDetailsGroup', () => {
 	let container: HTMLElement;
@@ -154,5 +163,115 @@ describe('DetailsGroup', () => {
 		const group = new DetailsGroup(container);
 		expect(typeof group.destroy).toBe('function');
 		group.destroy();
+	});
+});
+
+describe('DetailsGroup with AnimatedDetails instances', () => {
+	let container: HTMLElement;
+
+	function makeAnimatedContainer() {
+		container = document.createElement('div');
+		container.innerHTML = `
+			<details class="disclosure">
+				<summary class="disclosure__summary">Item 1</summary>
+				<div class="disclosure__content">Content 1</div>
+			</details>
+			<details class="disclosure">
+				<summary class="disclosure__summary">Item 2</summary>
+				<div class="disclosure__content">Content 2</div>
+			</details>
+			<details class="disclosure">
+				<summary class="disclosure__summary">Item 3</summary>
+				<div class="disclosure__content">Content 3</div>
+			</details>
+		`;
+		document.body.appendChild(container);
+
+		const details = container.querySelectorAll<HTMLDetailsElement>('details');
+		details.forEach((el) => new AnimatedDetails(el));
+		return details;
+	}
+
+	beforeEach(() => {
+		mockAnimate.mockClear();
+	});
+
+	afterEach(() => {
+		document.body.innerHTML = '';
+	});
+
+	it('should call animated close on siblings in exclusive mode', () => {
+		const details = makeAnimatedContainer();
+		initDetailsGroup(container, { exclusive: true });
+
+		const instance1 = instanceRegistry.get(details[0])!;
+		const closeSpy = vi.spyOn(instance1, 'close');
+
+		// Open first
+		details[0].open = true;
+		details[0].dispatchEvent(new Event('toggle'));
+
+		// Open second - should trigger animated close on first
+		details[1].open = true;
+		details[1].dispatchEvent(new Event('toggle'));
+
+		expect(closeSpy).toHaveBeenCalled();
+	});
+
+	it('should fall back to direct DOM when no instance exists', () => {
+		container = document.createElement('div');
+		container.innerHTML = `
+			<details>
+				<summary>Item 1</summary>
+				<div>Content 1</div>
+			</details>
+			<details>
+				<summary>Item 2</summary>
+				<div>Content 2</div>
+			</details>
+		`;
+		document.body.appendChild(container);
+
+		initDetailsGroup(container, { exclusive: true });
+
+		const details = container.querySelectorAll('details');
+
+		details[0].open = true;
+		details[0].dispatchEvent(new Event('toggle'));
+
+		details[1].open = true;
+		details[1].dispatchEvent(new Event('toggle'));
+
+		// Falls back to direct DOM, so open = false immediately
+		expect(details[0].open).toBe(false);
+	});
+
+	it('should use animated open in openByIndex', () => {
+		const details = makeAnimatedContainer();
+		const group = new DetailsGroup(container, { exclusive: false });
+
+		const instance1 = instanceRegistry.get(details[1])!;
+		const openSpy = vi.spyOn(instance1, 'open');
+
+		group.openByIndex(1);
+
+		expect(openSpy).toHaveBeenCalled();
+	});
+
+	it('should use animated close in closeAll', () => {
+		const details = makeAnimatedContainer();
+		const group = new DetailsGroup(container, { exclusive: false });
+
+		// Open some details first
+		details[0].open = true;
+		details[1].open = true;
+
+		const closeSpy0 = vi.spyOn(instanceRegistry.get(details[0])!, 'close');
+		const closeSpy1 = vi.spyOn(instanceRegistry.get(details[1])!, 'close');
+
+		group.closeAll();
+
+		expect(closeSpy0).toHaveBeenCalled();
+		expect(closeSpy1).toHaveBeenCalled();
 	});
 });

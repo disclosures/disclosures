@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla Mockups — @disclosures/core</title>
+  <link rel="stylesheet" href="../core/dist/styles.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      display: block;
+      padding: 1.25rem;
+      border: 1px solid var(--page-border);
+      border-radius: 8px;
+      background: var(--page-surface);
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--page-accent);
+      background: var(--page-code-bg);
+    }
+
+    .card__title {
+      font-weight: 600;
+      color: var(--page-fg);
+      margin-bottom: 0.35rem;
+    }
+
+    .card__desc {
+      font-size: 0.8rem;
+      color: var(--page-muted);
+      line-height: 1.4;
+    }
+
+    .card__tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-family: monospace;
+      color: var(--page-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2rem 0 1rem;
+    }
+
+    .hero__img {
+      display: block;
+      max-width: 280px;
+      height: auto;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      color: var(--page-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: var(--page-muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand active">disclosures</a>
+      <a href="basic.html">Basic</a>
+      <a href="nested.html">Nested</a>
+      <a href="faq.html">FAQ</a>
+      <a href="tree.html">Tree</a>
+      <a href="stepper.html">Stepper</a>
+      <a href="settings.html">Settings</a>
+      <a href="data-table.html">Data Table</a>
+      <a href="api.html">API</a>
+      <a href="tokens.html">Tokens</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <img class="hero__img" src="hero.webp" alt="Disclosures mascot — eyes peering through a torn opening" width="1536" height="1024">
+      <h1>@disclosures/core</h1>
+      <p>Framework-agnostic visual spec. Every pattern below uses only native HTML, CSS, and the IIFE build.</p>
+    </div>
+
+    <div class="card-grid mt-3">
+      <a class="card" href="basic.html">
+        <span class="card__tag">Details / Summary</span>
+        <div class="card__title">Basic Disclosure</div>
+        <div class="card__desc">Single disclosure, indicator variants, default open state.</div>
+      </a>
+
+      <a class="card" href="nested.html">
+        <span class="card__tag">Hierarchical</span>
+        <div class="card__title">Nested Depth</div>
+        <div class="card__desc">3-level nesting with visual depth differentiation.</div>
+      </a>
+
+      <a class="card" href="faq.html">
+        <span class="card__tag">DisclosureGroup</span>
+        <div class="card__title">FAQ / Accordion</div>
+        <div class="card__desc">Exclusive (accordion) and multi-open group modes.</div>
+      </a>
+
+      <a class="card" href="tree.html">
+        <span class="card__tag">Higher-Level Pattern</span>
+        <div class="card__title">Tree Navigation</div>
+        <div class="card__desc">File system and category tree built on core primitives.</div>
+      </a>
+
+      <a class="card" href="stepper.html">
+        <span class="card__tag">Higher-Level Pattern</span>
+        <div class="card__title">Multi-Step Stepper</div>
+        <div class="card__desc">Sequential wizard with step indicators and navigation.</div>
+      </a>
+
+      <a class="card" href="settings.html">
+        <span class="card__tag">CollapsiblePanel</span>
+        <div class="card__title">Settings Panel</div>
+        <div class="card__desc">Stacked collapsible panels with form controls.</div>
+      </a>
+
+      <a class="card" href="data-table.html">
+        <span class="card__tag">Expandable Rows</span>
+        <div class="card__title">Data Table</div>
+        <div class="card__desc">Table rows that expand to reveal detail views.</div>
+      </a>
+
+      <a class="card" href="api.html">
+        <span class="card__tag">JavaScript API</span>
+        <div class="card__title">Programmatic API</div>
+        <div class="card__desc">AnimatedDetails and DetailsGroup class usage.</div>
+      </a>
+
+      <a class="card" href="tokens.html">
+        <span class="card__tag">CSS Custom Properties</span>
+        <div class="card__title">Theming &amp; Tokens</div>
+        <div class="card__desc">Custom properties, light/dark themes, customization.</div>
+      </a>
+    </div>
+  </div>
+
+  <script src="../core/dist/index.global.js"></script>
+  <script>Disclosures.autoInit();</script>
+</body>
+</html>

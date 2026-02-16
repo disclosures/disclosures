@@ -1,3 +1,5 @@
+import { instanceRegistry } from './animated-details';
+
 /**
  * Options for initDetailsGroup
  */
@@ -43,7 +45,8 @@ export function initDetailsGroup(container: HTMLElement, options?: DetailsGroupO
 				if (detail.open) {
 					details.forEach((other) => {
 						if (other !== detail && other.open) {
-							other.open = false;
+							const instance = instanceRegistry.get(other);
+							instance ? instance.close() : (other.open = false);
 						}
 					});
 				}
@@ -75,7 +78,8 @@ export class DetailsGroup {
 	openByIndex(index: number): void {
 		const details = this.container.querySelectorAll<HTMLDetailsElement>('details');
 		if (details[index]) {
-			details[index].open = true;
+			const instance = instanceRegistry.get(details[index]);
+			instance ? instance.open() : (details[index].open = true);
 		}
 	}
 
@@ -85,7 +89,8 @@ export class DetailsGroup {
 	closeAll(): void {
 		const details = this.container.querySelectorAll<HTMLDetailsElement>('details');
 		details.forEach((detail) => {
-			detail.open = false;
+			const instance = instanceRegistry.get(detail);
+			instance ? instance.close() : (detail.open = false);
 		});
 	}
 
