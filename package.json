@@ -5,10 +5,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "bash scripts/build-site.sh",
+    "build:core": "pnpm --filter @disclosures/core build",
+    "build:docs": "pnpm --filter @disclosures/docs build",
     "test": "pnpm -r test",
+    "dev": "pnpm --filter @disclosures/core build && cd packages/vanilla && python3 -m http.server 8000",
     "docs:dev": "pnpm --filter @disclosures/docs dev",
-    "docs:build": "pnpm --filter @disclosures/docs build",
     "lint": "biome check .",
     "format": "biome format --write ."
   },

@@ -3,6 +3,7 @@ import starlight from '@astrojs/starlight';
 
 export default defineConfig({
   site: 'https://disclosures.dev',
+  base: '/docs',
   integrations: [
     starlight({
       title: 'Disclosures',
